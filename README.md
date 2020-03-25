@@ -4,8 +4,10 @@ HMM VE NAİVE BAYES İLE HARF TANIMA
 
 ### 1. Problem Tanımı
 Bu proje, çevrimdışı el yazısı belgelerini yüksek doğrulukla tanımak için bir algoritma tasarlamayı amaçlamaktadır. Bu projede sadece küçük harfler düşünülür.
+
 ### 2. Yaklaşım Yöntemleri
 Özgün tasarımda, sorunun üstesinden gelmek için Naive Bayes modeli önerildi. Naive Bayes kullanarak, doğruluk oranını %62.88 olarak elde ettik. Bunu geliştirmek için, Gizli Markov modelini bir kelimenin harfleri arasındaki ilişkilerin dikkate alındığı Naive Bayes modeli ile birleştirerek modelimizi yeniden tasarladık. Bu toplu model ile doğruluk oranını %98.86'a yükselttik.
+
 ### 3. Plan
 #### 3.1. Naïve Bayes 
 Naive Bayes sınıflandırıcıları, özellikler arasında güçlü (naive) bağımsızlık varsayımlarıyla Bayes Teoremini uygulamaya dayanan basit "olasılıksal sınıflandırıcılar" ailesidir.
@@ -47,6 +49,7 @@ Her veri noktası, aşağıdaki özelliklere sahip olan küçük harfleri temsil
 7. p_i_j: 0/1 - i satırı j sütunu piksel değeri, 
 Veri kümesi bağlantısı:
 http://ai.stanford.edu/~btaskar/ocr/
+
 ### 4. Önerilen Model
 #### 4.1.Naïve Bayes
 Her harf resmi 16 x 8 piksel dizisi olarak temsil edilir. Dizide, 1 siyah ve 0 beyaz gösterir. Bir harfteki her pikselin harf göz önüne alındığında koşullu bağımsız olduğunu varsayıyoruz, bu nedenle Naive Bayes için model aşağıdaki denklemler olarak temsil edilebilir:
@@ -67,36 +70,41 @@ Harf ile harf arasındaki ilişkiyi belirtmek 26 x 26'lık bir matristir. Aşağ
 ##### Yayılım olasılığı 
 P (Xt|Yt), gerçek değerin zıt olduğu göz önüne alındığında, Naive Bayes tarafından tahmin edilen her harfin olasılığını gösterir. Aşağıdaki denklem ile hesaplanır:
 P(X_t│Y_t )=sayaç(X_t,Y_t )/sayaç(Y_t ) 
+
 ### 5. Deney
 Viterbi algoritması, en olası kelime olan Y'nin en olası harf dizisini tahmin etmek için kullanılır. 10 cross fold validation doğruluğunu hesaplamak için kullanılır. Ayrıntılı olarak, toplam veri seti, eğitim için 9 kat kullanılan ve test için bir tane bırakan 10 kata bölünmüştür. Bu prosedür 10 kez tekrarlanır, böylece 10 doğruluk oranı ile 10 model elde ederiz ve nihai doğruluk oranı 10'un ortalamasını alarak hesaplanır.
+
 ### 6. Sonuç 
 10 Cross fold validation’a göre;
 #### 6.1. Naïve Bayes modelinden sonuçları
 Test için kullanılan fold	Doğruluk
-1	62.72%
-2	61.99%
-3	63.70%
-4	62.69%
-5	62.07%
-6	63.03%
-7	61.15%
-8	64.58%
-9	63.53%
-10	61.30%
-Ortalama	62.68%
+| Test için kullanılan fold | Doğruluk |
+| ------------- | ------------- |
+| 1 | 62.72% |
+| 2 | 61.99% |
+| 3 | 63.70% |
+| 4	| 62.69% |
+| 5	| 62.07% |
+| 6	| 63.03% |
+| 7	| 61.15% |
+| 8	| 64.58% |
+| 9	| 63.53% |
+| 10| 61.30% |
+| Ortalama |	62.68% |
 #### 6.2. HMM ve Naïve Bayes modelinin birleşim sonucu
-Test için kullanılan fold	Doğruluk
-1	98.85%
-2	99.01%
-3	98.83%
-4	98.77%
-5	98.63%
-6	98.63%
-7	99.07%
-8	98.73%
-9	98.84%
-10	98.70%
-Ortalama	98.78%
+| Test için kullanılan fold | Doğruluk |
+| ------------- | ------------- |
+| 1 |	98.85% |
+| 2 |	99.01% |
+| 3 |	98.83% |
+| 4 |	98.77% |
+| 5 |	98.63% |
+| 6 |	98.63% |
+| 7 |	99.07% |
+| 8 |	98.73% |
+| 9 |	98.84% |
+| 10 |	98.70% |
+| Ortalama |	98.78% |
 
 ### 7. Tartışma
 Sonuçtan da anlaşılacağı gibi, HMM modelini NB modeline birleştirerek letter veriseti için  doğruluğu %62.68'den %98.78'e yükselttik. Sonuç aynı zamanda, bir kelime içinde harfler arasında güçlü bir ilişki olduğu varsayımımızı da doğrulamaktadır. 
